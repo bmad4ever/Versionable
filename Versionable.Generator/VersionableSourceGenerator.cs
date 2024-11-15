@@ -80,7 +80,7 @@ namespace Versionable
             builder.AppendLine("using Versionable;");
             builder.AppendLine("using System.Runtime.InteropServices;");
             builder.AppendLine("using System.Runtime.CompilerServices;");
-            builder.AppendLine("namespace Versionable.Generated");
+            builder.AppendLine($"namespace Versionable.Generated{(string.IsNullOrEmpty(structNamespace) ? "" : "_")}{structNamespace}");
             builder.AppendLine("{");
             if (!string.IsNullOrEmpty(structNamespace))
             {
