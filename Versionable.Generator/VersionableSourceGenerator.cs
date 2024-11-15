@@ -38,7 +38,7 @@ namespace Versionable
                 var structSymbol = model.GetDeclaredSymbol(structDeclaration) as INamedTypeSymbol;
 
                 var containingTypes = new List<string>();
-                var currentType = structSymbol; //.ContainingType;
+                var currentType = structSymbol;
                 while (currentType != null)
                 {
                     if (currentType.DeclaredAccessibility == Accessibility.Private ||
@@ -51,24 +51,23 @@ namespace Versionable
                     containingTypes.Insert(0, currentType.Name);
                     currentType = currentType.ContainingType;
                 }
-                var fullTypeName = string.Join(".", containingTypes);// + "." : "") + structSymbol.Name;
+                var fullTypeName = string.Join(".", containingTypes);
+                var structNamespace =
+                    structSymbol.ContainingNamespace.IsGlobalNamespace ? string.Empty :
+                    structSymbol.ContainingNamespace?.ToDisplayString() ?? string.Empty;
 
                 // Valid access, generate the class
-                var generatedCode = GenerateVersionedClass(structSymbol, fullTypeName);
-                context.AddSource($"{structSymbol.Name}_Versioned.g.cs", SourceText.From(generatedCode, Encoding.UTF8));
+                var generatedCode = GenerateVersionedClass(structSymbol, structNamespace, fullTypeName);
+                context.AddSource($"{structNamespace}_{fullTypeName}_Versioned.g.cs", SourceText.From(generatedCode, Encoding.UTF8));
 
             NEXT_CANDIDATE_STRUCT:
                 continue;
             }
         }
 
-        private string GenerateVersionedClass(INamedTypeSymbol structSymbol, string fullTypeName)
+        private string GenerateVersionedClass(INamedTypeSymbol structSymbol, string structNamespace, string fullTypeName)
         {
             var v_class_name = $"V_{structSymbol.Name}";
-
-            var structNamespace =
-                structSymbol.ContainingNamespace.IsGlobalNamespace ? string.Empty :
-                structSymbol.ContainingNamespace?.ToDisplayString() ?? string.Empty;
 
             var structName = structSymbol.Name;
             var members = structSymbol.GetMembers()
