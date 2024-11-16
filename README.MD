@@ -63,7 +63,7 @@ Generate "versioned" decorator class using the [Versionable] attribute and type 
 </summary>
 
 ```csharp
-\\ Source data type to make "versionable"
+// Source data type to make "versionable"
 namespace GeometricShapes
 {
     [Versionable]
@@ -94,7 +94,7 @@ namespace GeometricShapes
 ```
 
 ```csharp
-\\ Generated File: GeometricShapes_Circle_Versioned.g.cs
+// Generated File: GeometricShapes_Circle_Versioned.g.cs
 using System;
 using Versionable;
 using System.Runtime.InteropServices;
@@ -156,7 +156,7 @@ namespace Versionable.Generated_GeometricShapes
 ```
 
 ```csharp
-\\ Replacing Circle with w/ V_Circle
+// Replacing Circle with w/ V_Circle
 #if DEBUG
 using Circle = Versionable.Generated_GeometricShapes.V_Circle;
 #else
