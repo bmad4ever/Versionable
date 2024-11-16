@@ -5,7 +5,7 @@ The class Versioned wraps a struct to keep track of the number of updates done t
 The [Versionable] attribute will output a new decorator class that can*** be swapped with the source data (provided that struct specific syntax is not used). 
 The generated class keeps track of the number of updates and contains properties to access the struct's fields and properties.
 
-*****Be mindful that the wrapper is a reference type! It may break the original behavior if directly passed to a function as argument.**
+*****Be mindful that the wrapper is a reference type! It may break the original behavior!**
 
 It is also possible to use the generated class using existing data instead of allocating new data, making it an "improved" version of the Versioned class that allows more direct access to the struct's fields and properties.
 
